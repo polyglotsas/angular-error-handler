@@ -78,6 +78,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
@@ -129,6 +130,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "projects/angular-error-handler/src/test.ts",
             "tsConfig": "projects/angular-error-handler/tsconfig.spec.json",
             "karmaConfig": "projects/angular-error-handler/karma.conf.js"

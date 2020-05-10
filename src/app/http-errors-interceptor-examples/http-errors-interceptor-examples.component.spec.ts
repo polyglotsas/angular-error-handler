@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 import { HttpErrorsInterceptorExamplesService } from '../shared/http-errors-interceptor-examples.service';
 
@@ -12,6 +13,7 @@ describe('HttpErrorsInterceptorExamplesComponent', () => {
 
   beforeEach(async(() => {
     const spyObj = jasmine.createSpyObj('HttpErrorsInterceptorExamplesService', ['produceError']);
+    spyObj.produceError.and.returnValue(of(undefined));
     TestBed.configureTestingModule({
       declarations: [HttpErrorsInterceptorExamplesComponent],
       providers: [{ provide: HttpErrorsInterceptorExamplesService, useValue: spyObj }]
