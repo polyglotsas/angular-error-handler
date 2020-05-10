@@ -3,5 +3,5 @@
   <p id="mat-error-dialog-message">{{ message }}</p>
 </div>
 <div class="mat-error-dialog-actions" mat-dialog-actions>
-  <button mat-button cdkFocusInitial (click)="close()">Ok</button>
+  <button (click)="close()" mat-button cdkFocusInitial id="mat-error-dialog-close-button">Ok</button>
 </div>
