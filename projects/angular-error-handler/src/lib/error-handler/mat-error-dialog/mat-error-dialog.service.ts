@@ -4,13 +4,13 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ErrorHandlerWithConfig } from '../error-handler.module';
 
 import { MatErrorDialogComponent, ErrorDialogData } from './mat-error-dialog.component';
-import { MatErrorDialogConfig } from './mat-error-dialog-config';
+import { MatErrorDialogConfig, MatErrorDialogDisplayData } from './mat-error-dialog-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatErrorDialogService implements ErrorHandlerWithConfig {
-  private readonly DEFAULT_MAT_DIALOG_CONFIG: MatDialogConfig = {
+  readonly DEFAULT_MAT_DIALOG_CONFIG: MatDialogConfig = {
     maxHeight: '90%',
     maxWidth: '90%',
     role: 'alertdialog',
@@ -18,22 +18,46 @@ export class MatErrorDialogService implements ErrorHandlerWithConfig {
     ariaLabelledBy: 'mat-error-dialog-title'
   };
 
-  private readonly DEFAULT_MAT_ERROR_DIALOG_CONFIG: MatErrorDialogConfig = {
+  readonly DEFAULT_MAT_ERROR_DIALOG_DISPLAY_DATA: MatErrorDialogDisplayData = {
     title: 'Error',
     message: 'An unexpected error occurred',
-    closeButtonText: 'Ok',
+    closeButtonText: 'Ok'
+  };
+
+  readonly DEFAULT_MAT_ERROR_DIALOG_CONFIG: MatErrorDialogConfig = {
+    ...this.DEFAULT_MAT_ERROR_DIALOG_DISPLAY_DATA,
     matDialogConfig: this.DEFAULT_MAT_DIALOG_CONFIG
   };
 
   constructor(private readonly dialog: MatDialog) {}
 
   handleError(error: any, config: MatErrorDialogConfig = this.DEFAULT_MAT_ERROR_DIALOG_CONFIG): void {
-    const { matDialogConfig = {}, ...configData } = config;
-    const composedData = { ...matDialogConfig.data, ...configData, matDialogConfig, error };
-    const dialogConfig: MatDialogConfig = {
-      ...matDialogConfig,
+    const dialogConfig = this.getMatDialogConfig(error, config);
+    this.dialog.open<MatErrorDialogComponent, ErrorDialogData>(MatErrorDialogComponent, dialogConfig);
+  }
+
+  private getMatDialogConfig(error: any, config: MatErrorDialogConfig): MatDialogConfig<ErrorDialogData> {
+    const combinedMatDialogConfig = this.getCombinedMatDialogConfig(config);
+    const combinedDisplayData = this.getCombinedMatErrorDialogDisplayData(config);
+    const composedData = {
+      ...combinedDisplayData,
+      ...combinedMatDialogConfig.data,
+      matDialogConfig: combinedMatDialogConfig,
+      error
+    };
+    return {
+      ...combinedMatDialogConfig,
       data: composedData
     };
-    this.dialog.open<MatErrorDialogComponent, ErrorDialogData>(MatErrorDialogComponent, dialogConfig);
+  }
+
+  private getCombinedMatDialogConfig(config: MatErrorDialogConfig): MatDialogConfig {
+    const { matDialogConfig = {} } = config;
+    return { ...matDialogConfig, ...this.DEFAULT_MAT_DIALOG_CONFIG };
+  }
+
+  private getCombinedMatErrorDialogDisplayData(config: MatErrorDialogConfig): MatErrorDialogDisplayData {
+    const { matDialogConfig, ...displayData } = config;
+    return { ...this.DEFAULT_MAT_ERROR_DIALOG_DISPLAY_DATA, ...displayData };
   }
 }

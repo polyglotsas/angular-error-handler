@@ -1,31 +1,34 @@
-import { TestBed, async } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
 
+@Component({
+  selector: 'ngeh-http-errors-interceptor-examples',
+  template: '<div id="http-errors-interceptor-examples"></div>'
+})
+class HttpErrorsInterceptorExamplesStubComponent {}
+
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent, HttpErrorsInterceptorExamplesStubComponent]
     }).compileComponents();
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'angular-error-handler'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-error-handler');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-error-handler app is running!');
+  it('should render the http errors interceptor examples', () => {
+    const nativeElement = fixture.nativeElement;
+    const httpErrorsInterceptorElement = nativeElement.querySelector('#http-errors-interceptor-examples');
+    expect(httpErrorsInterceptorElement).toBeTruthy();
   });
 });

@@ -13,6 +13,6 @@ export class HttpErrorsInterceptorExamplesComponent implements OnInit {
   ngOnInit(): void {}
 
   produceError(statusCode: number): void {
-    this.httpErrorsInterceptorExamplesService.produceError(statusCode).subscribe(result => console.log(result));
+    this.httpErrorsInterceptorExamplesService.produceError(statusCode).subscribe(() => {});
   }
 }

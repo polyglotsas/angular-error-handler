@@ -30,7 +30,7 @@ export class MatErrorDialogComponent {
   private initializeMessage() {
     const { message, messageConstructor, error } = this.data;
     try {
-      this.message = messageConstructor ? messageConstructor(error) : message;
+      this.message = !!messageConstructor ? messageConstructor(error) : message;
     } catch (error) {
       this.message = message;
     }
