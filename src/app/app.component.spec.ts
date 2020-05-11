@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MatToolbarModule],
       declarations: [AppComponent, HttpErrorsInterceptorExamplesStubComponent]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
