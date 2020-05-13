@@ -30,8 +30,7 @@ describe('MatErrorDialogService', () => {
         ...service.DEFAULT_MAT_DIALOG_CONFIG,
         data: {
           ...expectedData,
-          error: testError,
-          matDialogConfig
+          error: testError
         }
       };
       service.handleError(testError);
@@ -53,8 +52,7 @@ describe('MatErrorDialogService', () => {
           ...combinedMatDialogConfig,
           data: {
             ...expectedData,
-            error: testError,
-            matDialogConfig: combinedMatDialogConfig
+            error: testError
           }
         };
         service.handleError(testError, { matDialogConfig: customMatDialogConfig });
@@ -70,8 +68,7 @@ describe('MatErrorDialogService', () => {
           data: {
             ...baseData,
             ...customData,
-            error: testError,
-            matDialogConfig: matDialogConfigSent
+            error: testError
           }
         };
         service.handleError(testError, { matDialogConfig: matDialogConfigSent });

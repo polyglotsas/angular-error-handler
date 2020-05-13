@@ -3,12 +3,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import {
   ErrorHandlerModuleConfig,
-  HttpErrorHandlerConfig,
   ErrorHandlerConfig,
+  HttpErrorHandlerConfig,
   ErrorHandlerWithConfig,
   ErrorHandlingStrategy
-} from './error-handler.module';
+} from './error-handler-module-config';
 import { MatErrorDialogService } from './mat-error-dialog';
+import { MatErrorSnackBarService } from './mat-error-snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ErrorHandlerService implements ErrorHandler {
   constructor(
     private readonly ngZone: NgZone,
     private readonly errorHandlerModuleConfig: ErrorHandlerModuleConfig,
-    private readonly matErrorDialogService: MatErrorDialogService
+    private readonly matErrorDialogService: MatErrorDialogService,
+    private readonly matErrorSnackBarService: MatErrorSnackBarService
   ) {}
 
   handleError(error: any): void {
@@ -48,6 +50,8 @@ export class ErrorHandlerService implements ErrorHandler {
     switch (errorHandlerConfig.strategy) {
       case ErrorHandlingStrategy.MAT_ERROR_DIALOG:
         return this.matErrorDialogService;
+      case ErrorHandlingStrategy.MAT_ERROR_SNACKBAR:
+        return this.matErrorSnackBarService;
     }
   }
 }
