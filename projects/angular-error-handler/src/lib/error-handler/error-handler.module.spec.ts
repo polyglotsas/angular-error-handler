@@ -1,11 +1,8 @@
-import {
-  ErrorHandlerModule,
-  ErrorHandlerConfig,
-  ErrorHandlingStrategy,
-  ErrorHandlerModuleConfig
-} from './error-handler.module';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ValueProvider } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { ErrorHandlerModule } from './error-handler.module';
+import { ErrorHandlerConfig, ErrorHandlingStrategy, ErrorHandlerModuleConfig } from './error-handler-module-config';
 
 describe('ErrorHandlerModule', () => {
   describe('has a forRoot method', () => {

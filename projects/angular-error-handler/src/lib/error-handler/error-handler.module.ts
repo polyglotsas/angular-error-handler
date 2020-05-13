@@ -1,39 +1,14 @@
 import { NgModule, ModuleWithProviders, ErrorHandler } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-
-import { ErrorHandlerService } from './error-handler.service';
-import { MatErrorDialogComponent } from './mat-error-dialog/mat-error-dialog.component';
-import { MatErrorDialogConfig } from './mat-error-dialog/mat-error-dialog-config';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 
-export type ErrorHandlerStrategyConfig = MatErrorDialogConfig;
-
-export interface ErrorHandlerWithConfig {
-  handleError(error: any, config?: ErrorHandlerStrategyConfig): void;
-}
-
-export enum ErrorHandlingStrategy {
-  MAT_ERROR_DIALOG = 'MatErrorDialogStrategy',
-  MAT_ERROR_SNACKBAR = 'MatErrorSnackbarStrategy'
-}
-
-export interface HttpErrorHandlerConfig {
-  [status: number]: ErrorHandlerConfig;
-  default: ErrorHandlerConfig;
-}
-
-export interface ErrorHandlerConfig {
-  strategy: ErrorHandlingStrategy;
-  config?: MatErrorDialogConfig;
-}
-
-export class ErrorHandlerModuleConfig {
-  httpErrorsConfig: ErrorHandlerConfig | HttpErrorHandlerConfig;
-  errorsConfig: ErrorHandlerConfig;
-}
+import { ErrorHandlerModuleConfig } from './error-handler-module-config';
+import { ErrorHandlerService } from './error-handler.service';
+import { MatErrorDialogComponent } from './mat-error-dialog/mat-error-dialog.component';
 
 @NgModule({
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatSnackBarModule, MatButtonModule],
   declarations: [MatErrorDialogComponent],
   entryComponents: [MatErrorDialogComponent]
 })

@@ -32,6 +32,7 @@ export class MatErrorDialogComponent {
     try {
       this.message = !!messageConstructor ? messageConstructor(error) : message;
     } catch (error) {
+      console.error('The message constructor got the following error:', error);
       this.message = message;
     }
   }

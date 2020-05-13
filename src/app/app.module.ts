@@ -4,7 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { ErrorHandlerModule, ErrorHandlingStrategy, ErrorHandlerConfig } from 'angular-error-handler';
+import { ErrorHandlerConfig, ErrorHandlingStrategy, ErrorHandlerModule } from 'angular-error-handler';
 
 import { HttpExamplesInterceptor } from './shared/http-examples-interceptor';
 
@@ -26,7 +26,7 @@ const badRequestErrorHandlerConfig: ErrorHandlerConfig = {
 };
 
 const unexpectedErrorHandlerConfig: ErrorHandlerConfig = {
-  strategy: ErrorHandlingStrategy.MAT_ERROR_DIALOG
+  strategy: ErrorHandlingStrategy.MAT_ERROR_SNACKBAR
 };
 
 @NgModule({
