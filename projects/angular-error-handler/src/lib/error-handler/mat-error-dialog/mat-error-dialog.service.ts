@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { ErrorHandlerWithConfig } from '../error-handler.module';
+import { ErrorHandlerWithConfig } from '../error-handler-module-config';
 
 import { MatErrorDialogComponent, ErrorDialogData } from './mat-error-dialog.component';
 import { MatErrorDialogConfig, MatErrorDialogDisplayData } from './mat-error-dialog-config';
@@ -42,7 +42,6 @@ export class MatErrorDialogService implements ErrorHandlerWithConfig {
     const composedData = {
       ...combinedDisplayData,
       ...combinedMatDialogConfig.data,
-      matDialogConfig: combinedMatDialogConfig,
       error
     };
     return {
@@ -52,7 +51,7 @@ export class MatErrorDialogService implements ErrorHandlerWithConfig {
   }
 
   private getCombinedMatDialogConfig(config: MatErrorDialogConfig): MatDialogConfig {
-    const { matDialogConfig = {} } = config;
+    const { matDialogConfig } = config;
     return { ...matDialogConfig, ...this.DEFAULT_MAT_DIALOG_CONFIG };
   }
 
