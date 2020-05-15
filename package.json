@@ -6,13 +6,15 @@
     "start": "ng serve",
     "start:dev": "concurrently \"npm run start\" \"ng build angular-error-handler --watch\"",
     "build": "ng build",
+    "build:library": "ng build --project=angular-error-handler",
     "test": "ng test",
     "test:app": "ng test --project=angular-error-handler-app",
     "test:library": "ng test --project=angular-error-handler",
     "test:app:ci": "ng test --project=angular-error-handler-app --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:library:ci": "ng test --project=angular-error-handler --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "npm run build:library && ng e2e",
+    "e2e:ci": "npm run build:library && ng e2e --protractor-config=e2e/protractor-ci.conf.js"
   },
   "private": true,
   "dependencies": {
