@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
+import { ErrorHandlerWithConfig } from '../error-handler-module-config';
+
 import { MatErrorSnackBarConfig, MatErrorSnackBarDisplayData } from './mat-error-snack-bar-config';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MatErrorSnackBarService {
+export class MatErrorSnackBarService implements ErrorHandlerWithConfig {
   readonly DEFAULT_MAT_ERROR_SNACK_BAR_DISPLAY_DATA: MatErrorSnackBarDisplayData = {
     message: 'An unexpected error occurred',
     dismissButtonText: 'Ok'

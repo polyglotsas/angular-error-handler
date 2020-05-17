@@ -24,6 +24,10 @@ export class HttpErrorsInterceptorExamplesPage {
     await $('#produce-500-button').click();
   }
 
+  async showNavigateToErrorPageExample(): Promise<void> {
+    await $('#produce-404-button').click();
+  }
+
   async getMatErrorDialogDisplayData(): Promise<MatErrorDialogDisplayData> {
     const title = await $('#mat-error-dialog-title').getText();
     const message = await $('#mat-error-dialog-message').getText();

@@ -1,6 +1,7 @@
 import { browser, logging } from 'protractor';
 
 import { HttpErrorsInterceptorExamplesPage } from './http-errors-interceptor-examples.po';
+import { ErrorPage } from './error-page.po';
 
 describe('HTTP errors interceptor examples section', () => {
   let page: HttpErrorsInterceptorExamplesPage;
@@ -32,5 +33,11 @@ describe('HTTP errors interceptor examples section', () => {
     const data = await page.getMatErrorSnackBarDisplayData();
     expect(data.message).toBe('An unexpected error occurred');
     expect(data.dismissButtonText).toBe('Ok');
+  });
+
+  it('should demonstrate the navigate to an error page strategy', async () => {
+    await page.showNavigateToErrorPageExample();
+    const errorPage = new ErrorPage();
+    expect(await errorPage.isInPage()).toBe(true);
   });
 });
