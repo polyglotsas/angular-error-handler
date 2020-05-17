@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { HttpErrorsInterceptorExamplesService } from '../shared/http-errors-interceptor-examples.service';
 
@@ -7,10 +7,8 @@ import { HttpErrorsInterceptorExamplesService } from '../shared/http-errors-inte
   templateUrl: './http-errors-interceptor-examples.component.html',
   styleUrls: ['./http-errors-interceptor-examples.component.scss']
 })
-export class HttpErrorsInterceptorExamplesComponent implements OnInit {
+export class HttpErrorsInterceptorExamplesComponent {
   constructor(private readonly httpErrorsInterceptorExamplesService: HttpErrorsInterceptorExamplesService) {}
-
-  ngOnInit(): void {}
 
   produceError(statusCode: number): void {
     this.httpErrorsInterceptorExamplesService.produceError(statusCode).subscribe(() => {});

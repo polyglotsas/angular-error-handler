@@ -6,10 +6,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorHandlerConfig, ErrorHandlingStrategy, ErrorHandlerModule } from 'angular-error-handler';
 
+import { AppRoutingModule } from './app-routing.module';
 import { HttpExamplesInterceptor } from './shared/http-examples-interceptor';
 
 import { AppComponent } from './app.component';
 import { HttpErrorsInterceptorExamplesComponent } from './http-errors-interceptor-examples/http-errors-interceptor-examples.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { ExamplesComponent } from './examples/examples.component';
 
 const badRequestErrorHandlerConfig: ErrorHandlerConfig = {
   strategy: ErrorHandlingStrategy.MAT_ERROR_DIALOG,
@@ -26,11 +29,19 @@ const badRequestErrorHandlerConfig: ErrorHandlerConfig = {
 };
 
 const unexpectedErrorHandlerConfig: ErrorHandlerConfig = {
-  strategy: ErrorHandlingStrategy.MAT_ERROR_SNACKBAR
+  strategy: ErrorHandlingStrategy.MAT_ERROR_SNACK_BAR
+};
+
+const notFoundErrorHandlerConfig: ErrorHandlerConfig = {
+  strategy: ErrorHandlingStrategy.NAVIGATE_TO_ERROR_PAGE,
+  config: {
+    errorPageUrl: 'error',
+    sendErrorInParams: true
+  }
 };
 
 @NgModule({
-  declarations: [AppComponent, HttpErrorsInterceptorExamplesComponent],
+  declarations: [AppComponent, HttpErrorsInterceptorExamplesComponent, ErrorPageComponent, ExamplesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -40,10 +51,12 @@ const unexpectedErrorHandlerConfig: ErrorHandlerConfig = {
     ErrorHandlerModule.forRoot({
       httpErrorsConfig: {
         400: badRequestErrorHandlerConfig,
+        404: notFoundErrorHandlerConfig,
         default: unexpectedErrorHandlerConfig
       },
       errorsConfig: unexpectedErrorHandlerConfig
-    })
+    }),
+    AppRoutingModule
   ],
   providers: [
     {

@@ -23,7 +23,7 @@ describe('ErrorHandlerModule', () => {
     const TEST_ERROR_HANDLER_MODULE_CONFIG: ErrorHandlerModuleConfig = {
       httpErrorsConfig: {
         400: badRequestErrorHandlerConfig,
-        default: { strategy: ErrorHandlingStrategy.MAT_ERROR_SNACKBAR }
+        default: { strategy: ErrorHandlingStrategy.MAT_ERROR_SNACK_BAR }
       },
       errorsConfig: { strategy: ErrorHandlingStrategy.MAT_ERROR_DIALOG }
     };

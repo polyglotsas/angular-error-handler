@@ -13,18 +13,34 @@ export class HttpExamplesInterceptor implements HttpInterceptor {
     }
   });
 
-  readonly clientError: HttpErrorResponse = new HttpErrorResponse({
-    status: 400,
-    error: {
-      property: 'password',
-      constraint: 'must be at least 8 characters long'
-    }
-  });
+  readonly httpErrors: HttpErrorResponse[] = [
+    this.serverError,
+    new HttpErrorResponse({
+      status: 400,
+      error: {
+        property: 'password',
+        constraint: 'must be at least 8 characters long'
+      }
+    }),
+    new HttpErrorResponse({
+      status: 401,
+      error: {
+        message: 'You need to sign in first'
+      }
+    }),
+    new HttpErrorResponse({
+      status: 404,
+      error: {
+        message: 'The product was not found'
+      }
+    })
+  ];
 
   constructor() {
     this.exampleErrorsMap = new Map();
-    this.exampleErrorsMap.set('500', this.serverError);
-    this.exampleErrorsMap.set('400', this.clientError);
+    this.httpErrors.forEach((httpError: HttpErrorResponse) =>
+      this.exampleErrorsMap.set(`${httpError.status}`, httpError)
+    );
   }
 
   intercept(req: HttpRequest<any>, _: HttpHandler): Observable<HttpEvent<any>> {

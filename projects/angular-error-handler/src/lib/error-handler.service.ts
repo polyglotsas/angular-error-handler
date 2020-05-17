@@ -10,6 +10,7 @@ import {
 } from './error-handler-module-config';
 import { MatErrorDialogService } from './mat-error-dialog';
 import { MatErrorSnackBarService } from './mat-error-snack-bar';
+import { NavigateToErrorPageService } from './navigate-to-error-page/navigate-to-error-page.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ErrorHandlerService implements ErrorHandler {
     private readonly ngZone: NgZone,
     private readonly errorHandlerModuleConfig: ErrorHandlerModuleConfig,
     private readonly matErrorDialogService: MatErrorDialogService,
-    private readonly matErrorSnackBarService: MatErrorSnackBarService
+    private readonly matErrorSnackBarService: MatErrorSnackBarService,
+    private readonly navigateToErrorPageService: NavigateToErrorPageService
   ) {}
 
   handleError(error: any): void {
@@ -38,7 +40,10 @@ export class ErrorHandlerService implements ErrorHandler {
   }
 
   private getErrorHandlerConfigForHttpError(error: HttpErrorResponse): ErrorHandlerConfig {
-    const httpErrorsConfig = this.errorHandlerModuleConfig.httpErrorsConfig;
+    const { errorsConfig, httpErrorsConfig } = this.errorHandlerModuleConfig;
+    if (!httpErrorsConfig) {
+      return errorsConfig;
+    }
     const { status } = error;
     const asHttpErrorHandlerConfig = httpErrorsConfig as HttpErrorHandlerConfig;
     const asErrorHandlerConfig = httpErrorsConfig as ErrorHandlerConfig;
@@ -50,8 +55,10 @@ export class ErrorHandlerService implements ErrorHandler {
     switch (errorHandlerConfig.strategy) {
       case ErrorHandlingStrategy.MAT_ERROR_DIALOG:
         return this.matErrorDialogService;
-      case ErrorHandlingStrategy.MAT_ERROR_SNACKBAR:
+      case ErrorHandlingStrategy.MAT_ERROR_SNACK_BAR:
         return this.matErrorSnackBarService;
+      case ErrorHandlingStrategy.NAVIGATE_TO_ERROR_PAGE:
+        return this.navigateToErrorPageService;
     }
   }
 }
